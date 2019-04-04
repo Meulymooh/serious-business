@@ -1,7 +1,7 @@
 // Today's date
 var now = new Date();
 
-// Create array of days (getDay always starts with Sunday)
+// Creating array of days (getDay always starts with Sunday)
 var weekday = new Array();
 weekday[0] = "Sunday";
 weekday[1] = "Monday";
@@ -11,7 +11,7 @@ weekday[4] = "Thursday";
 weekday[5] = "Friday";
 weekday[6] = "Saturday";
 
-// Create array of months
+// Creating array of months
 var monthYear = new Array();
 monthYear[0] = "January";
 monthYear[1] = "February";
@@ -35,32 +35,75 @@ var checkTime = function() {
   var minutes = now.getMinutes(); 
   var today = weekday[dayOfWeek]; 
   var thisMonth = monthYear[month];
-  // Inserts date and time in div
-  var timeDiv = document.getElementById('timeDiv');
 
-// Choose 24h time (not am/pm)
-var suffix = hour >= 12 ? "" : "";
+// Inserting date and time in div
+var timeDiv = document.getElementById('timeDiv');
 
-  // add 0 to one digit minutes
-  if (minutes < 10) {
+// Choosing 24h time (not am/pm)
+var suffix = hour >= 24 ? "" : "";
+
+// Adding 0 to one digit minutes
+if (minutes < 10) {
     minutes = "0" + minutes
-  }; 
+}; 
 
-// Variables for opening hours in html divs
-var textEarly = document.getElementsByClassName("textEarly")[0, 1, 2, 3, 4];
+// =============== CLOSING EARLY =============== 
 
-// Button and function "close early"
+// Variables for opening hours (if closing early)
+var earlyTuesday = document.getElementById("earlyTuesday");
+var earlyWednesday = document.getElementById("earlyWednesday");
+var earlyThursday = document.getElementById("earlyThursday");
+var earlyFriday = document.getElementById("earlyFriday");
+var earlySaturday = document.getElementById("earlySaturday");
+
+
+// Button "close early"
 var btn = document.getElementById("close"); 
 btn.addEventListener("click", closeEarly);
 
 function closeEarly() {
-    if ((dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5 || dayOfWeek == 6) && hour >= 9 && hour <= 21)
+    // Closing early on Tuesday
+    if ((dayOfWeek == 2) && hour >= 9 && hour <= 18)
     { 
-    textEarly.innerHTML = '9h - ' + hour + 'h' + minutes + suffix; 
+    earlyTuesday.innerHTML = '9h - ' + hour + 'h' + minutes + suffix; 
+    timeDiv.innerHTML = '<b>' + today + ' ' + nbDate + ' ' + thisMonth + ' </b><br/><br/> ' + ' It is ' + hour + 'h' + minutes + suffix + '<br/><br/>Go to hell, we\'re closing early today ! <br/><br/><img class="picture" src="https://media1.tenor.com/images/34fecae7c3f348f0606c7ad9d5489f48/tenor.gif?itemid=3389550">';
+    timeDiv.className = 'closed';
+    }
+
+    // Closing early on Wednesday
+    else if ((dayOfWeek == 3) && hour >= 9 && hour <= 18)
+    { 
+    earlyWednesday.innerHTML = '9h - ' + hour + 'h' + minutes + suffix; 
+    timeDiv.innerHTML = '<b>' + today + ' ' + nbDate + ' ' + thisMonth + ' </b><br/><br/> ' + ' It is ' + hour + 'h' + minutes + suffix + '<br/><br/>Go to hell, we\'re closing early today ! <br/><br/><img class="picture" src="https://media1.tenor.com/images/34fecae7c3f348f0606c7ad9d5489f48/tenor.gif?itemid=3389550">';
+    timeDiv.className = 'closed';
+    }
+
+    // Closing early on Thursday
+    else if ((dayOfWeek == 4) && hour >= 9 && hour <= 18)
+    { 
+    earlyThursday.innerHTML = '9h - ' + hour + 'h' + minutes + suffix; 
+    timeDiv.innerHTML = '<b>' + today + ' ' + nbDate + ' ' + thisMonth + ' </b><br/><br/> ' + ' It is ' + hour + 'h' + minutes + suffix + '<br/><br/>Go to hell, we\'re closing early today ! <br/><br/><img class="picture" src="https://media1.tenor.com/images/34fecae7c3f348f0606c7ad9d5489f48/tenor.gif?itemid=3389550">';
+    timeDiv.className = 'closed';
+    }
+
+    // Closing early on Friday
+    else if ((dayOfWeek == 5) && hour >= 9 && hour <= 18)
+    { 
+    earlyFriday.innerHTML = '9h - ' + hour + 'h' + minutes + suffix; 
+    timeDiv.innerHTML = '<b>' + today + ' ' + nbDate + ' ' + thisMonth + ' </b><br/><br/> ' + ' It is ' + hour + 'h' + minutes + suffix + '<br/><br/>Go to hell, we\'re closing early today ! <br/><br/><img class="picture" src="https://media1.tenor.com/images/34fecae7c3f348f0606c7ad9d5489f48/tenor.gif?itemid=3389550">';
+    timeDiv.className = 'closed';
+    }
+
+    // Closing early on Saturday
+    else if ((dayOfWeek == 6) && hour >= 9 && hour <= 18)
+    { 
+    earlySaturday.innerHTML = '9h - ' + hour + 'h' + minutes + suffix; 
     timeDiv.innerHTML = '<b>' + today + ' ' + nbDate + ' ' + thisMonth + ' </b><br/><br/> ' + ' It is ' + hour + 'h' + minutes + suffix + '<br/><br/>Go to hell, we\'re closing early today ! <br/><br/><img class="picture" src="https://media1.tenor.com/images/34fecae7c3f348f0606c7ad9d5489f48/tenor.gif?itemid=3389550">';
     timeDiv.className = 'closed';
     }
  };
+
+ // =============== OPENED YES/NO ===============
 
   // Closed on Sunday and Monday
   if ((dayOfWeek == 0 || dayOfWeek == 1) && hour >= 0 && hour <= 23) {
@@ -69,7 +112,7 @@ function closeEarly() {
   } 
 
   // Open from Tuesday to Saturday 9h-18h
-  else if ((dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5 || dayOfWeek == 6) && hour >= 9 && hour <= 21) {
+  else if ((dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5 || dayOfWeek == 6) && hour >= 9 && hour <= 18) {
     timeDiv.innerHTML = '<b>' + today + ' ' + nbDate + ' ' + thisMonth + ' </b><br/><br/> ' + ' It is ' + hour + 'h' + minutes + suffix + '<br/><br/>Hooray, we\'re open ! <br/><br/><img class="picture" src="https://media.giphy.com/media/11sBLVxNs7v6WA/giphy.gif">';
     timeDiv.className = 'open';
   } 
@@ -93,8 +136,6 @@ function closeEarly() {
     timeDiv.className = 'closed';
   }
 };
-
-
 
 // Clock updates every 30 seconds
 setInterval(checkTime, 30000);
