@@ -39,21 +39,28 @@ var checkTime = function() {
   var timeDiv = document.getElementById('timeDiv');
 
 // Choose 24h time (not am/pm)
-var suffix = hour >= 24 ? "" : "";
+var suffix = hour >= 12 ? "" : "";
 
   // add 0 to one digit minutes
   if (minutes < 10) {
     minutes = "0" + minutes
-  };
+  }; 
+
+// Variables for opening hours in html divs
+var textEarly = document.getElementsByClassName("textEarly")[0, 1, 2, 3, 4];
 
 // Button and function "close early"
 var btn = document.getElementById("close"); 
 btn.addEventListener("click", closeEarly);
 
 function closeEarly() {
+    if ((dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5 || dayOfWeek == 6) && hour >= 9 && hour <= 21)
+    { 
+    textEarly.innerHTML = '9h - ' + hour + 'h' + minutes + suffix; 
     timeDiv.innerHTML = '<b>' + today + ' ' + nbDate + ' ' + thisMonth + ' </b><br/><br/> ' + ' It is ' + hour + 'h' + minutes + suffix + '<br/><br/>Go to hell, we\'re closing early today ! <br/><br/><img class="picture" src="https://media1.tenor.com/images/34fecae7c3f348f0606c7ad9d5489f48/tenor.gif?itemid=3389550">';
-    timeDiv.className = 'open';
-  } 
+    timeDiv.className = 'closed';
+    }
+ };
 
   // Closed on Sunday and Monday
   if ((dayOfWeek == 0 || dayOfWeek == 1) && hour >= 0 && hour <= 23) {
@@ -62,7 +69,7 @@ function closeEarly() {
   } 
 
   // Open from Tuesday to Saturday 9h-18h
-  else if ((dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5 || dayOfWeek == 6) && hour >= 9 && hour <= 18) {
+  else if ((dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5 || dayOfWeek == 6) && hour >= 9 && hour <= 21) {
     timeDiv.innerHTML = '<b>' + today + ' ' + nbDate + ' ' + thisMonth + ' </b><br/><br/> ' + ' It is ' + hour + 'h' + minutes + suffix + '<br/><br/>Hooray, we\'re open ! <br/><br/><img class="picture" src="https://media.giphy.com/media/11sBLVxNs7v6WA/giphy.gif">';
     timeDiv.className = 'open';
   } 
@@ -80,15 +87,18 @@ function closeEarly() {
   } 
 
   // Closing early when button clicked 
-  else if ((dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5 || dayOfWeek == 6) && hour >= 0 && hour < 9) { closeEarly
-
+  else if (closeEarly()) { 
+    textEarly.innerHTML = '9h - ' + hour + 'h' + ' ' + minutes + suffix; 
+    timeDiv.innerHTML = '<b>' + today + ' ' + nbDate + ' ' + thisMonth + ' </b><br/><br/> ' + ' It is ' + hour + 'h' + minutes + suffix + '<br/><br/>Go to hell, we\'re closing early today ! <br/><br/><img class="picture" src="https://media1.tenor.com/images/34fecae7c3f348f0606c7ad9d5489f48/tenor.gif?itemid=3389550">';
+    timeDiv.className = 'closed';
   }
 };
+
+
 
 // Clock updates every 30 seconds
 setInterval(checkTime, 30000);
 checkTime();
 
 
-// Creating picture class for border styling in CSS
-var picture = document.createElementByClassName("picture")
+
