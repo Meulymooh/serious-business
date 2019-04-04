@@ -53,5 +53,22 @@ h1 {
 	font-family: 'Noto Sans', sans-serif;
 	color: white;
 	font-size: 120%;
-	vertical-align: center;	
+}
+
+.picture {
+	border: 1px solid white;
+}
+
+#close {
+	margin: 50px auto auto auto;
+}
+
+button {
+	font-family: 'Noto Sans', sans-serif;
+	background-color: #000000;
+	background-image: url("https://www.transparenttextures.com/patterns/greyzz.png");
+  	color: white; 
+  	border: 2px solid white;
+  	width: 150px;
+  	height: 40px;
 }
